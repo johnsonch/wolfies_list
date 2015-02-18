@@ -18,7 +18,7 @@ class AdsControllerTest < ActionController::TestCase
 
   test "should create ad" do
     assert_difference('Ad.count') do
-      post :create, ad: { address: @ad.address, description: @ad.description, price: @ad.price, title: @ad.title }
+      post :create, ad: { address: @ad.address, description: @ad.description, price: @ad.price, title: @ad.title, user_id: 1 }
     end
 
     assert_redirected_to ad_path(assigns(:ad))
