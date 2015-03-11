@@ -1,0 +1,16 @@
+<h1>Users in Wolfie's List</h1>
+
+<table class="table table-striped">
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Joined</th>
+  </tr> 
+<% @users.each do |user| %>
+  <tr>
+    <td><%= user.name %></td>
+    <td><%= user.email %></td>
+    <td><%= user.created_at %></td>
+  </tr>
+<% end %>
+</table>

@@ -1,2 +1,36 @@
-<h1>Users#new</h1>
-<p>Find me in app/views/users/new.html.erb</p>
+<h1>Signup</h1>
+
+<%= render partial: "shared/errors", locals: {model: @user} %>
+
+<%= form_for(@user, :html => {class: 'form-horizontal'}) do |f| %>
+<fieldset>
+  <legend></legend>
+  <div class='form_group'>
+    <%= f.label :name, class: 'col-lg-2 control-label' %>
+    <div class='col-lg-10'>
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
+  </div>
+  <div class='form_group'>
+    <%= f.label :email, class: 'col-lg-2 control-label' %>
+    <div class='col-lg-10'>
+      <%= f.email_field :email, class: 'form-control' %>
+    </div>
+  </div>
+  <div class='form_group'>
+    <%= f.label :password, class: 'col-lg-2 control-label' %>
+    <div class='col-lg-10'>
+      <%= f.password_field :password, class: 'form-control' %>
+    </div>
+  </div>
+  <div class='form_group'>
+    <%= f.label :password_confirmation, "Confirmation", class: 'col-lg-2 control-label' %>
+    <div class='col-lg-10'>
+      <%= f.password_field :password_confirmation, class: 'form-control' %>
+    </div>
+  </div>
+  <div class='form_group'>
+    <%= f.submit "Create my account", class: "btn btn-primary" %>
+  </div>
+</fieldset>
+<% end %>

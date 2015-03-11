@@ -1,12 +1,10 @@
 Rails.application.routes.draw do
-  get 'users/new'
-
-  get '/about_us' => "static_pages#about_us"
+   get '/about_us' => "static_pages#about_us"
   get '/help' => "static_pages#help"
   get 'signup'  => 'users#new'
   
   resources :categories
-
+  resources :users
   resources :ads
 
   root "static_pages#home"

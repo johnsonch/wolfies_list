@@ -1,15 +1,5 @@
 <%= form_for(@ad, :html => {class: 'form-horizontal'}) do |f| %>
-  <% if @ad.errors.any? %>
-    <div id='error_explanation'>
-      <h2><%= pluralize(@ad.errors.count, 'error') %> prohibited this ad from being saved:</h2>
-
-      <ul>
-      <% @ad.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+<%= render partial: "shared/errors", locals: {model: @ad} %>
   <fieldset>
     <legend>Legend</legend>
 
