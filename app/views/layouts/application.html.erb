@@ -43,7 +43,12 @@
         <button type="submit" class="btn btn-default">Submit</button>
       </form>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Link</a></li>
+        <% if logged_in? %>
+          <li>Welcome <%=current_user.name %></li>
+          <li><%= link_to 'Logout', logout_path, method: "delete" %></li>
+        <% else %>
+          <li><%= link_to 'Login', login_path %></li>
+        <% end %>
       </ul>
     </div>
   </div>
