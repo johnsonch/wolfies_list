@@ -7,10 +7,15 @@ class SessionsController < ApplicationController
   def create
     user = User.find_by(email: params[:session][:email])
     if user && user.authenticate(params[:session][:password])
-      #log the user in
-      login(user)
-      #show them their profile
-      redirect_to(user)
+      if user.activated?
+        login(user)
+        redirect_to(user)
+      else
+        message  = "Account not activated. "
+        message += "Check your email for the activation link."
+        flash[:warning] = message
+        redirect_to root_url
+      end
     else
       flash.now[:danger] = 'The username or password is invalid.'
       render 'new'
