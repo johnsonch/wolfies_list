@@ -1,0 +1,11 @@
+<div class="container-fluid">
+  <% flash.each do |message_type, message| %>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="alert-dismissible alert-<%= message_type %>">
+          <h4><%= message_type %></h4>
+          <p><%= message %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
