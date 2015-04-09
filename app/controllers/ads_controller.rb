@@ -1,5 +1,7 @@
 class AdsController < ApplicationController
+  include SessionsHelper
   before_action :set_ad, only: [:show, :edit, :update, :destroy]
+  before_action :user_logged_in, except: [:index, :show]
 
   # GET /ads
   # GET /ads.json
@@ -74,5 +76,12 @@ class AdsController < ApplicationController
                                  :price, 
                                  :address, 
                                  :category_id)
+    end
+
+    def user_logged_in
+      unless logged_in?
+        flash[:danger] = "Please log in."
+        redirect_to login_url
+      end
     end
 end
