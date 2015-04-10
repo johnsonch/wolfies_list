@@ -11,6 +11,7 @@
       <th>Description</th>
       <th>Price</th>
       <th>Address</th>
+      <th>Posted By</th>
       <% if logged_in? %>
         <th colspan="2"></th>
       <% end %>
@@ -24,6 +25,7 @@
         <td><%= link_to ad.description, ad %></td>
         <td><%= link_to ad.price, ad %></td>
         <td><%= link_to ad.address, ad %></td>
+        <td><%= ad.user ? ad.user.name : 'Anonymous' %></td>
         <% if logged_in? %>
           <td><%= link_to 'Edit', edit_user_ad_path(current_user, ad) %></td>
         <td><%= link_to 'Destroy', user_ad_path(current_user, ad), method: :delete, data: { confirm: 'Are you sure?' } %></td>
