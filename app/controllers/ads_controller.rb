@@ -1,5 +1,7 @@
 class AdsController < ApplicationController
+  before_action :user_logged_in, except: [:index, :show]
   before_action :set_ad, only: [:show, :edit, :update, :destroy]
+  
 
   # GET /ads
   # GET /ads.json
@@ -25,21 +27,28 @@ class AdsController < ApplicationController
   # POST /ads.json
   def create
     @ad = Ad.new(ad_params)
-
-    respond_to do |format|
-      if @ad.save
-        format.html { redirect_to @ad, notice: 'Ad was successfully created.' }
-        format.json { render :show, status: :created, location: @ad }
-      else
-        format.html { render :new }
-        format.json { render json: @ad.errors, status: :unprocessable_entity }
-      end
+    if @ad.user_id != current_user.id
+      flash[:danger] = 'You are not authorized to do this'
+      redirect_to root_url
+    end
+    respond_to do |format| 
+        if @ad.save
+          format.html { redirect_to @ad, notice: 'Ad was successfully created.' }
+          format.json { render :show, status: :created, location: @ad }
+        else
+          format.html { render :new }
+          format.json { render json: @ad.errors, status: :unprocessable_entity }
+        end
     end
   end
 
   # PATCH/PUT /ads/1
   # PATCH/PUT /ads/1.json
   def update
+    if @ad.user_id != current_user.id
+      flash[:danger] = 'You are not authorized to do this'
+      redirect_to root_url
+    end
     respond_to do |format|
       if @ad.update(ad_params)
         format.html { redirect_to @ad, notice: 'Ad was successfully updated.' }
@@ -54,6 +63,10 @@ class AdsController < ApplicationController
   # DELETE /ads/1
   # DELETE /ads/1.json
   def destroy
+     if @ad.user_id != current_user.id
+      flash[:danger] = 'You are not authorized to do this'
+      redirect_to root_url
+    end
     @ad.destroy
     respond_to do |format|
       format.html { redirect_to ads_url, notice: 'Ad was successfully destroyed.' }

@@ -1,4 +1,4 @@
-<%= form_for(@ad, :html => {class: 'form-horizontal'}) do |f| %>
+<%= form_for([current_user, @ad], :html => {class: 'form-horizontal'}) do |f| %>
 <%= render partial: "shared/errors", locals: {model: @ad} %>
   <fieldset>
     <legend>Legend</legend>

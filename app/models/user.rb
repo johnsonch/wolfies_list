@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   attr_accessor :activation_token
   before_create :create_activation_token
 
+  has_many :ads
+  
   validates :name, presence: true, length: {maximum: 10}
   validates :email, presence: true 
   
