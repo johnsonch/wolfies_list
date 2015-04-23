@@ -9,6 +9,8 @@ group :development do
   gem 'sqlite3'
 end
 
+gem 'will_paginate', '~> 3.0.6'
+
 group :production do
   gem 'pg',             '0.17.1'
   gem 'rails_12factor', '0.0.2'
