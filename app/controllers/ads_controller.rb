@@ -1,7 +1,7 @@
 class AdsController < ApplicationController
   before_action :user_logged_in, except: [:index, :show]
   before_action :set_ad, only: [:show, :edit, :update, :destroy]
-  
+  before_action :owns_ad, only: [:update, :destroy]
 
   # GET /ads
   # GET /ads.json
@@ -16,7 +16,7 @@ class AdsController < ApplicationController
 
   # GET /ads/new
   def new
-    @ad = Ad.new
+    @ad = current_user.ads.new
   end
 
   # GET /ads/1/edit
@@ -25,12 +25,8 @@ class AdsController < ApplicationController
 
   # POST /ads
   # POST /ads.json
-  def create
-    @ad = Ad.new(ad_params)
-    if @ad.user_id != current_user.id
-      flash[:danger] = 'You are not authorized to do this'
-      redirect_to root_url
-    end
+  def create    
+    @ad = current_user.ads.new(ad_params)
     respond_to do |format| 
         if @ad.save
           format.html { redirect_to @ad, notice: 'Ad was successfully created.' }
@@ -45,10 +41,6 @@ class AdsController < ApplicationController
   # PATCH/PUT /ads/1
   # PATCH/PUT /ads/1.json
   def update
-    if @ad.user_id != current_user.id
-      flash[:danger] = 'You are not authorized to do this'
-      redirect_to root_url
-    end
     respond_to do |format|
       if @ad.update(ad_params)
         format.html { redirect_to @ad, notice: 'Ad was successfully updated.' }
@@ -63,10 +55,6 @@ class AdsController < ApplicationController
   # DELETE /ads/1
   # DELETE /ads/1.json
   def destroy
-     if @ad.user_id != current_user.id
-      flash[:danger] = 'You are not authorized to do this'
-      redirect_to root_url
-    end
     @ad.destroy
     respond_to do |format|
       format.html { redirect_to ads_url, notice: 'Ad was successfully destroyed.' }
@@ -75,9 +63,21 @@ class AdsController < ApplicationController
   end
 
   private
+  
+    def owns_ad
+     if @ad.user_id != current_user.id
+        flash[:danger] = 'You are not authorized to do this'
+        redirect_to root_url
+      end
+    end
+  
     # Use callbacks to share common setup or constraints between actions.
     def set_ad
-      @ad = Ad.find(params[:id])
+      if params[:user_id]
+        @ad = current_user.ads.find(params[:id])
+      else
+        @ad = Ad.find(params[:id])
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

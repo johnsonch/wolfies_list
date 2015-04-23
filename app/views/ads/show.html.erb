@@ -1,29 +1,55 @@
+<div class="col-lg-4">
 <p id="notice"><%= notice %></p>
-
+ 
 <p>
   <strong>Title:</strong>
   <%= @ad.title %>
 </p>
-
+ 
 <p>
   <strong>Description:</strong>
   <%= @ad.description %>
 </p>
-
+ 
 <p>
   <strong>Price:</strong>
   <%= @ad.price %>
 </p>
-
+ 
 <p>
   <strong>Address:</strong>
   <%= @ad.address %>
 </p>
-
+ 
 <% if logged_in? %>
   <%= link_to 'Edit', edit_user_ad_path(current_user, @ad) %> |
   <%= link_to 'Back', user_ads_path(current_user) %>
 <% else %>
   <%= link_to 'Back', ads_path %>
 <% end %>
-
+</div>
+<div class="col-lg-8">
+  <div id="map-canvas"></div>
+  (<%= @ad.latitude %>, <%= @ad.longitude %>)
+</div>
+   <style>
+      #map-canvas {
+        width: 500px;
+        height: 400px;
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+    <script>
+      function initialize() {
+        var latlng = new google.maps.LatLng(<%= @ad.latitude %>, <%= @ad.longitude %>);
+        var mapCanvas = document.getElementById('map-canvas');
+        var mapOptions = {
+          center: latlng,
+          zoom: 15,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        var map = new google.maps.Map(mapCanvas, mapOptions)
+        var marker = new google.maps.Marker({ position: latlng, map: map });
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>

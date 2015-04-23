@@ -8,6 +8,8 @@ gem 'bcrypt', '3.1.7'
 group :development do
   gem 'sqlite3'
 end
+gem 'faker'
+gem 'geocoder'
 
 gem 'will_paginate', '~> 3.0.6'
 
