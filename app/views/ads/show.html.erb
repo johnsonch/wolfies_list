@@ -28,10 +28,23 @@
   <%= link_to 'Back', ads_path %>
 <% end %>
 </div>
-<div class="col-lg-8">
+<div class="col-lg-6">
   <div id="map-canvas"></div>
   (<%= @ad.latitude %>, <%= @ad.longitude %>)
 </div>
+
+<div class="col-md-2" id="weather-data">
+  <h3>Weather</h3>
+  <%= image_tag("http://www.fostersystems.com/ccdata/images/spinner.gif", :id => 'next_page_spinner') %>
+</div>
+
+<%= javascript_include_tag 'weather' %>
+
+<script>
+  var url =<%=raw "'http://api.openweathermap.org/data/2.5/weather?lat=#{@ad.latitude}&lon=#{@ad.longitude};'" %>
+  window.getWeather(url);
+</script>
+
    <style>
       #map-canvas {
         width: 500px;

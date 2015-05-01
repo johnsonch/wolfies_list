@@ -12,6 +12,7 @@ gem 'faker'
 gem 'geocoder'
 
 gem 'will_paginate', '~> 3.0.6'
+gem 'rest-client'
 
 group :production do
   gem 'pg',             '0.17.1'

@@ -1,4 +1,14 @@
 namespace :generate_data do
+  desc 'generate all data'
+  task :all => :environment do
+    Rake::Task["db:drop"].execute
+    Rake::Task["db:create"].execute
+    Rake::Task["db:migrate"].execute
+    Rake::Task["generate_data:users"].execute
+    Rake::Task["generate_data:categories"].execute
+    Rake::Task["generate_data:ads"].execute
+  end
+  
   desc 'generate some test categories'
   task :categories => :environment do
     25.times do
