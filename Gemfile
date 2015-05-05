@@ -10,6 +10,10 @@ group :development do
 end
 gem 'faker'
 gem 'geocoder'
+gem 'capistrano-rails'
+gem 'capistrano-bundler'
+gem 'capistrano-rbenv', '~> 2.0', require: false
+
 
 gem 'will_paginate', '~> 3.0.6'
 gem 'rest-client'
