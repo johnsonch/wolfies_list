@@ -14,8 +14,12 @@ gem 'geocoder'
 gem 'will_paginate', '~> 3.0.6'
 gem 'rest-client'
 
+gem 'capistrano-rails'
+gem 'capistrano-bundler'
+gem 'capistrano-rbenv', '~> 2.0', require: false
+
 group :production do
-  gem 'pg',             '0.17.1'
+  gem 'mysql2'
   gem 'rails_12factor', '0.0.2'
 end
 gem 'bootstrap-sass', '3.2.0.0'
